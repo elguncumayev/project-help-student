@@ -1,12 +1,12 @@
 # project-help-student
 N-Tier ASP.Net Core Web REST API Application
 
-#Purpose of the Application
+# Purpose of the Application
 This website is for anyone - especially for school students - for getting information and help from
 university students or teachers about departments and faculties taught in universities. Everyone
 can ask a question and search for meetings organized by volunteer students.
 
-##Project does not have FrontEnd part yet. Images below are created in Figma for University Assignment
+## Project does not have FrontEnd part yet. Images below are created in Figma for University Assignment
 ### Home Page
 <img src="ProjectInfoREADME/Home.png" alt="HomePage" width="384" height="432"/>
 ### Questions Page
