@@ -1,6 +1,8 @@
 # project-help-student
 N-Tier ASP.Net Core Web REST API Application
 
+# THE PROJECT IS UNDER DEVELOPMENT
+
 # Purpose of the Application
 This website is for anyone - especially for school students - for getting information and help from
 university students or teachers about departments and faculties taught in universities. Everyone
