@@ -29,7 +29,7 @@ namespace ProjectServices.Services
         }
         public async Task<User> GetUserByLoginInfo(UserLoginDto userLoginDto)
         {
-            return await _repository.GetByFilterAsync(user => user.Email == userLoginDto.Email && user.Password == userLoginDto.Password);
+            return await _repository.GetByFilterAsync(user => (user.Email == userLoginDto.EmailOrUsername || user.Username == userLoginDto.EmailOrUsername) && user.Password == userLoginDto.Password);
         }
 
         public async Task<IEnumerable<User>> GetAllUsersDtos()

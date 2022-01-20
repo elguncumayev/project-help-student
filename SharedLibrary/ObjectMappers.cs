@@ -14,8 +14,8 @@ namespace SharedLibrary
                 ID = user.ID,
                 Email = user.Email,
                 FirstName = user.FirstName,
-                FamilyName = user.FamilyName,
-                UserRole = user.UserRole,
+                FamilyName = user.Surname,
+                Role = user.Role,
                 ProfilePhotoURL = user.ProfilePhotoURL
             };
         }

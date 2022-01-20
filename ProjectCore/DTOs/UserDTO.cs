@@ -11,7 +11,7 @@ namespace ProjectCore.DTOs
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string FamilyName { get; set; }
-        public Role UserRole { get; set; }
+        public string Role { get; set; }
         public string ProfilePhotoURL { get; set; }
     }
 }

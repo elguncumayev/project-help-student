@@ -10,7 +10,7 @@ using ProjectData;
 namespace ProjectData.Migrations
 {
     [DbContext(typeof(ProjectDBContext))]
-    [Migration("20220107212744_InitialCreate")]
+    [Migration("20220120144032_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -121,27 +121,7 @@ namespace ProjectData.Migrations
 
                     b.HasIndex("AuthorID");
 
-                    b.ToTable("NewsS");
-                });
-
-            modelBuilder.Entity("ProjectCore.Models.OperationPermission", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Definition")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("RoleID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("RoleID");
-
-                    b.ToTable("Permissions");
+                    b.ToTable("Newss");
                 });
 
             modelBuilder.Entity("ProjectCore.Models.Question", b =>
@@ -170,21 +150,6 @@ namespace ProjectData.Migrations
                     b.ToTable("Questions");
                 });
 
-            modelBuilder.Entity("ProjectCore.Models.Role", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("RoleName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Roles");
-                });
-
             modelBuilder.Entity("ProjectCore.Models.User", b =>
                 {
                     b.Property<int>("ID")
@@ -193,9 +158,6 @@ namespace ProjectData.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FamilyName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
@@ -207,12 +169,16 @@ namespace ProjectData.Migrations
                     b.Property<string>("ProfilePhotoURL")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserRoleID")
-                        .HasColumnType("int");
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("UserRoleID");
 
                     b.ToTable("Users");
                 });
@@ -254,13 +220,6 @@ namespace ProjectData.Migrations
                     b.Navigation("Author");
                 });
 
-            modelBuilder.Entity("ProjectCore.Models.OperationPermission", b =>
-                {
-                    b.HasOne("ProjectCore.Models.Role", null)
-                        .WithMany("Permissions")
-                        .HasForeignKey("RoleID");
-                });
-
             modelBuilder.Entity("ProjectCore.Models.Question", b =>
                 {
                     b.HasOne("ProjectCore.Models.User", "Author")
@@ -270,23 +229,9 @@ namespace ProjectData.Migrations
                     b.Navigation("Author");
                 });
 
-            modelBuilder.Entity("ProjectCore.Models.User", b =>
-                {
-                    b.HasOne("ProjectCore.Models.Role", "UserRole")
-                        .WithMany()
-                        .HasForeignKey("UserRoleID");
-
-                    b.Navigation("UserRole");
-                });
-
             modelBuilder.Entity("ProjectCore.Models.Question", b =>
                 {
                     b.Navigation("Answers");
-                });
-
-            modelBuilder.Entity("ProjectCore.Models.Role", b =>
-                {
-                    b.Navigation("Permissions");
                 });
 #pragma warning restore 612, 618
         }

@@ -51,9 +51,10 @@ namespace ProjectHelpStudent.Controllers
             Claim[] claims = new[]
             {
                 new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.NameIdentifier, user.Username),
                 new Claim(ClaimTypes.GivenName, user.FirstName),
-                new Claim(ClaimTypes.Surname, user.FamilyName),
-                new Claim(ClaimTypes.Role, user.UserRole.RoleName)
+                new Claim(ClaimTypes.Surname, user.Surname),
+                new Claim(ClaimTypes.Role, user.Role)
             };
 
             JwtSecurityToken jwtSecurityToken = new JwtSecurityToken(

@@ -23,60 +23,22 @@ namespace ProjectData.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Roles",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Roles", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Permissions",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Definition = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RoleID = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Permissions", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Permissions_Roles_RoleID",
-                        column: x => x.RoleID,
-                        principalTable: "Roles",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FamilyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserRoleID = table.Column<int>(type: "int", nullable: true),
+                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ProfilePhotoURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Users_Roles_UserRoleID",
-                        column: x => x.UserRoleID,
-                        principalTable: "Roles",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -130,7 +92,7 @@ namespace ProjectData.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "NewsS",
+                name: "Newss",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
@@ -142,9 +104,9 @@ namespace ProjectData.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_NewsS", x => x.ID);
+                    table.PrimaryKey("PK_Newss", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_NewsS_Users_AuthorID",
+                        name: "FK_Newss_Users_AuthorID",
                         column: x => x.AuthorID,
                         principalTable: "Users",
                         principalColumn: "ID",
@@ -205,19 +167,9 @@ namespace ProjectData.Migrations
                 column: "ToID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_NewsS_AuthorID",
-                table: "NewsS",
+                name: "IX_Newss_AuthorID",
+                table: "Newss",
                 column: "AuthorID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Permissions_RoleID",
-                table: "Permissions",
-                column: "RoleID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_UserRoleID",
-                table: "Users",
-                column: "UserRoleID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -232,19 +184,13 @@ namespace ProjectData.Migrations
                 name: "Messages");
 
             migrationBuilder.DropTable(
-                name: "NewsS");
-
-            migrationBuilder.DropTable(
-                name: "Permissions");
+                name: "Newss");
 
             migrationBuilder.DropTable(
                 name: "Questions");
 
             migrationBuilder.DropTable(
                 name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "Roles");
         }
     }
 }

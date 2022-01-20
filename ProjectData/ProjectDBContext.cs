@@ -13,12 +13,10 @@ namespace ProjectData
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<OperationPermission> Permissions { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Meeting> Meetings { get; set; }
-        public DbSet<News> NewsS { get; set; }
+        public DbSet<News> Newss { get; set; }
     }
 }
