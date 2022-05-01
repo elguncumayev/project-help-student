@@ -1,27 +1,20 @@
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using ProjectCore.Models;
 using ProjectCore.Repositories;
 using ProjectCore.Services;
 using ProjectData;
 using ProjectData.Repositories;
+using ProjectServices.Auth;
 using ProjectServices.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using SharedLibrary;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjectHelpStudent
 {
@@ -40,29 +33,29 @@ namespace ProjectHelpStudent
             services.AddControllers();
 
             services.AddDbContext<ProjectDBContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionStringFromENV()));
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, SqlServerUserRepository>();
+            services.AddScoped<IJwtUtils, JwtUtils>();
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = Configuration["Jwt:Issuer"],
-                        ValidAudience = Configuration["Jwt:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
-                    };
-                });
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            //    {
+            //        options.TokenValidationParameters = new TokenValidationParameters
+            //        {
+            //            ValidateIssuer = true,
+            //            ValidateAudience = true,
+            //            ValidateLifetime = true,
+            //            ValidateIssuerSigningKey = true,
+            //            ValidIssuer = Configuration["Jwt:Issuer"],
+            //            ValidAudience = Configuration["Jwt:Audience"],
+            //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+            //        };
+            //    });
 
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("V1", new Microsoft.OpenApi.Models.OpenApiInfo
+                options.SwaggerDoc("V1", new OpenApiInfo
                 {
                     Title = "Project HelpStudent Swagger",
                     Description = "HelpStudent",
@@ -99,16 +92,17 @@ namespace ProjectHelpStudent
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
+            //app.UseHttpsRedirection();
 
             app.UseAuthentication();
+            app.UseRouting();
+            app.UseMiddleware<JwtMiddleware>();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapSwagger();
             });
 
             app.UseSwagger();

@@ -22,36 +22,36 @@ namespace ProjectHelpStudent.Controllers
             _userService = userService;
         }
         // GET: api/<UserController>
-        [HttpGet]
-        public async Task<IEnumerable<User>> GetAll()
-        {
-            return await _userService.GetAllUsersDtos();
-        }
+        //[HttpGet]
+        //public async Task<IEnumerable<User>> GetAll()
+        //{
+        //    return await _userService.GetAllUsersDtos();
+        //}
 
         // GET api/<UserController>/5
-        [HttpGet("{id}")]
-        public async Task<UserDTO> Get(int id)
-        {
-            return await _userService.GetUserDto(id);
-        }
+        //[HttpGet("{id}")]
+        //public async Task<UserPublicDTO> Get(int id)
+        //{
+        //    return await _userService.GetUserDto(id);
+        //}
 
         // POST api/<UserController>
-        [HttpPost]
-        public async Task Post([FromBody] User user)
-        {
-            await _userService.CreateUser(user);
-        }
+        //[HttpPost]
+        //public async Task Post([FromBody] User user)
+        //{
+        //    await _userService.CreateUser(user);
+        //}
 
         // PUT api/<UserController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
 
         // DELETE api/<UserController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }

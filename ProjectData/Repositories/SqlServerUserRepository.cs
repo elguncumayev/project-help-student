@@ -3,8 +3,8 @@ using ProjectCore.Models;
 using ProjectCore.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ProjectData.Repositories
@@ -28,15 +28,21 @@ namespace ProjectData.Repositories
             return await _dBContext.Set<User>().FirstOrDefaultAsync(user => user.ID == ID);
         }
 
-        public async Task<User> GetByFilterAsync(Expression<Func<User, bool>> filter)
+        public async Task<User> GetSingleByFilterAsync(Expression<Func<User, bool>> filter)
         {
             return await _dBContext.Set<User>().FirstOrDefaultAsync(filter);
         }
 
-        public async Task CreateAsync(User entity)
+        public async Task<IEnumerable<User>> GetManyByFilterAsync(Expression<Func<User, bool>> filter)
+        {
+            return await _dBContext.Set<User>().Where(filter).ToListAsync();
+        }
+
+        public async Task<int> CreateAsync(User entity)
         {
             await _dBContext.Users.AddAsync(entity);
             await _dBContext.SaveChangesAsync();
+            return entity.ID;
         }
 
         public async Task UpdateAsync(User entity)
